@@ -15,7 +15,6 @@ from ntptime import settime
 import network
 import ujson
 
-
 rtc=RTC()
 adc = machine.ADC(0)
 ssid = "5th_hufflepuff"
@@ -45,7 +44,8 @@ mcron.insert(mcron.PERIOD_HOUR, range(0, mcron.PERIOD_HOUR, 1800), 'half_hour', 
 
 def nothing():
 	print("nothing")
-
+	
+	run[get_code()]()
 	pass
 
 def open_usual():
@@ -95,16 +95,7 @@ def update():
 	
 	machine.reset()
 
-def get_code():
-	print("get_code")
-	response = urequests.get("https://api.thingspeak.com/channels/1204431/feeds.json?api_key=0Q99T4THA5P1COUB&results=1")
-	rt = response.text
-	response.close()
 
-	feed_val = ujson.loads(rt)
-	btn_val = feed_val["feeds"][0]["field1"]
-	btn_val_int = int(btn_val)
-	return btn_val_int
 
 def guest_mode_on():
 	print("guest_mode_on")
@@ -116,6 +107,24 @@ def guest_mode_off():
 
 	pass
 
-while True:
-	run = {0: nothing, 1: open_usual, 100: update, 101: wait_for_a_call, 102: guest_mode_on, 103: guest_mode_off}
-	run[get_code()]()
+
+
+def get_code():
+	print("get_code")
+	response = urequests.get("https://api.thingspeak.com/channels/1204431/feeds.json?api_key=0Q99T4THA5P1COUB&results=1")
+	rt = response.text
+	response.close()
+
+	feed_val = ujson.loads(rt)
+	btn_val = feed_val["feeds"][0]["field1"]
+	btn_val_int = int(btn_val)
+	return btn_val_int
+
+
+run = {0: nothing, 1: open_usual, 100: update, 101: wait_for_a_call, 102: guest_mode_on, 103: guest_mode_off}
+run[get_code()]()
+
+
+
+
+
