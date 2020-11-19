@@ -82,7 +82,15 @@ def update():
 		f.write(rtext)	
 		
 	response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
+	response_text = response.text
 	response.close()
+	
+	if response_text == "0":
+		sleep(16)
+		response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
+		response.close()
+		
+	
 	
 	machine.reset()
 
