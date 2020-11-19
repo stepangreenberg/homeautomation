@@ -24,8 +24,6 @@ wlan.connect(ssid3, passw)
 sleep(5)
 settime()
 
-
-#BUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG                 reset at 30 and 00 min
 mcron.init_timer()
 mcron.insert(mcron.PERIOD_HOUR, range(0, mcron.PERIOD_HOUR, 1800), 'half_hour', reset)
 
@@ -40,6 +38,8 @@ pin.on()
 def reset(callback_id, current_time, callback_memory):
 
 	machine.reset()
+
+mcron.insert(mcron.PERIOD_HOUR, range(0, mcron.PERIOD_HOUR, 1800), 'half_hour', reset)
 
 def nothing():
 
@@ -92,7 +92,7 @@ def guest_mode_on():
 def guest_mode_off():
 
 	pass
-	
+
 while True:
 	run = {0: nothing, 1: open_usual, 100: update, 101: wait_for_a_call, 102: guest_mode_on, 103: guest_mode_off}
 	run[get_code()]()
