@@ -3,6 +3,7 @@
 #guest_mode Ответ ботом домофон в гостевом режиме. 
 #30 минут - на стороне сервера, и подобное тож внеш память
 #add tesmode for timers
+#добиваться смены режима функция, пока не станет цифра не ноль
 
 import urequests
 import utime
@@ -27,6 +28,8 @@ wlan.connect(ssid3, passw)
 sleep(5)
 settime()
 
+read_call_pin_timer_activated = False
+
 mcron.init_timer()
 
 #pin = machine.Pin(2, machine.Pin.OUT)
@@ -48,14 +51,27 @@ def nothing():
 	pass
 
 def open_usual():
-	print("open_usual")
-	#pin.on()
-	pin2.off()
-	sleep(16)
-	#pin.off()
-	pin2.on()
-	response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
-	response.close()
+	if not read_call_pin_timer_activated:
+		#if not in waiting mode
+		print("open_usual")
+		#pin.on()
+		pin2.off()
+		sleep(16)
+		#pin.off()
+		pin2.on()
+		response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
+		response.close()
+	else:
+		print("Sorry, open_usual, but read_call_pin_timer_activated...")
+
+		response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=101")
+		response_text = response.text
+		response.close()
+		
+		if response_text == "0":
+			sleep(16)
+			response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=101")
+			response.close()
 
 def open_guestmode():
 	print("open_guestmode")
@@ -64,14 +80,37 @@ def open_guestmode():
 
 def read_call_pin(callback_id, current_time, callback_memory):
 	print("read_call_pin")
+	
 	if adc.read()>100:
-		open_usual()
+		print("open in read_call_pin")
+		#pin.on()
+		pin2.off()
+		sleep(16)
+		#pin.off()
+		pin2.on()
+
+		response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
+		response_text = response.text
+		response.close()
+		
+		if response_text == "0":
+			sleep(16)
+			response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
+			response.close()
 		mcron.remove("read_call_pin")
+		read_call_pin_timer_activated = False
+
+	else:
+
+		print("adc less than xxx waiting...")
 
 def wait_for_a_call():
-	print("wait_for_a_call")
-
-	mcron.insert(mcron.PERIOD_MINUTE, range(0, mcron.PERIOD_MINUTE, 1), 'read_call_pin', read_call_pin)
+	if not read_call_pin_timer_activated:
+		print("wait_for_a_call")
+		read_call_pin_timer_activated = True
+		mcron.insert(mcron.PERIOD_MINUTE, range(0, mcron.PERIOD_MINUTE, 1), 'read_call_pin', read_call_pin)
+	else:
+		print("Sorry, wait_for_a_call, but read_call_pin_timer_activated...")
 
 def update():
 	print("update")
@@ -94,8 +133,6 @@ def update():
 	
 	machine.reset()
 
-
-
 def guest_mode_on():
 	print("guest_mode_on")
 
@@ -105,8 +142,6 @@ def guest_mode_off():
 	print("guest_mode_off")
 
 	pass
-
-
 
 def get_code():
 	print("get_code")
@@ -122,8 +157,3 @@ def get_code():
 while True:
 	run = {0: nothing, 1: open_usual, 100: update, 101: wait_for_a_call, 102: guest_mode_on, 103: guest_mode_off}
 	run[get_code()]()
-
-
-
-
-
