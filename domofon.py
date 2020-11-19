@@ -51,6 +51,7 @@ def nothing():
 	pass
 
 def open_usual():
+	print("trying open_usual")
 	if not read_call_pin_timer_activated:
 		#if not in waiting mode
 		print("open_usual")
@@ -78,8 +79,17 @@ def open_guestmode():
 
 	pass
 
+def wait_for_a_call():
+	print("trying wait_for_a_call")
+	if not read_call_pin_timer_activated:
+		print("wait_for_a_call")
+		read_call_pin_timer_activated = True
+		mcron.insert(mcron.PERIOD_MINUTE, range(0, mcron.PERIOD_MINUTE, 1), 'read_call_pin', read_call_pin)
+	else:
+		print("Sorry, wait_for_a_call, but read_call_pin_timer_activated...")
+
 def read_call_pin(callback_id, current_time, callback_memory):
-	print("read_call_pin")
+	print("trying read_call_pin")
 	
 	if adc.read()>100:
 		print("open in read_call_pin")
@@ -104,16 +114,10 @@ def read_call_pin(callback_id, current_time, callback_memory):
 
 		print("adc less than xxx waiting...")
 
-def wait_for_a_call():
-	if not read_call_pin_timer_activated:
-		print("wait_for_a_call")
-		read_call_pin_timer_activated = True
-		mcron.insert(mcron.PERIOD_MINUTE, range(0, mcron.PERIOD_MINUTE, 1), 'read_call_pin', read_call_pin)
-	else:
-		print("Sorry, wait_for_a_call, but read_call_pin_timer_activated...")
+
 
 def update():
-	print("update")
+	print("trying update")
 	r = urequests.get("https://raw.githubusercontent.com/stepangreenberg/homeautomation/master/domofon.py")
 	rtext = r.text
 	r.close()
