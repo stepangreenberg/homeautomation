@@ -12,8 +12,9 @@ from time import sleep
 import machine
 from ntptime import settime
 import network
-rtc=RTC()
 
+rtc=RTC()
+adc = machine.ADC(0)
 ssid = "5th_hufflepuff"
 ssid2 = "5th_bignumbers"
 ssid3 = "5th_moominvalley"
@@ -58,7 +59,7 @@ def open_guestmode():
 	pass
 
 def read_call_pin():
-	if pin_sound:
+	if adc.read()>100:
 		open_usual()
 		mcron.remove("read_call_pin")
 
