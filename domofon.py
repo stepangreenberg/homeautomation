@@ -25,7 +25,6 @@ sleep(5)
 settime()
 
 mcron.init_timer()
-mcron.insert(mcron.PERIOD_HOUR, range(0, mcron.PERIOD_HOUR, 1800), 'half_hour', reset)
 
 pin = machine.Pin(2, machine.Pin.OUT)
 pin2 = machine.Pin(16, machine.Pin.OUT)
