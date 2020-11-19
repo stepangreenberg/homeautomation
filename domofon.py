@@ -33,8 +33,8 @@ mcron.init_timer()
 pin2 = machine.Pin(16, machine.Pin.OUT)
 pin2.off()
 #pin.off()
-sleep(1)
-#pin.on()
+sleep(3)
+pin2.on()
 
 def reset(callback_id, current_time, callback_memory):
 
@@ -43,12 +43,12 @@ def reset(callback_id, current_time, callback_memory):
 mcron.insert(mcron.PERIOD_HOUR, range(0, mcron.PERIOD_HOUR, 1800), 'half_hour', reset)
 
 def nothing():
-	print("nothing ")
+	print("nothing")
 
 	pass
 
 def open_usual():
-	print("open_usual  ")
+	print("open_usual")
 	#pin.on()
 	pin2.off()
 	sleep(16)
@@ -58,23 +58,23 @@ def open_usual():
 	response.close()
 
 def open_guestmode():
-	print("open_guestmode  ")
+	print("open_guestmode")
 
 	pass
 
 def read_call_pin():
-	print("read_call_pin   ")
+	print("read_call_pin")
 	if adc.read()>100:
 		open_usual()
 		mcron.remove("read_call_pin")
 
 def wait_for_a_call():
-	print("wait_for_a_call  ")
+	print("wait_for_a_call")
 
 	mcron.insert(mcron.PERIOD_MINUTE, range(0, mcron.PERIOD_MINUTE, 1), 'read_call_pin', read_call_pin)
 
 def update():
-	print("update  ")
+	print("update")
 	r = urequests.get("https://raw.githubusercontent.com/stepangreenberg/homeautomation/master/domofon.py")
 	rtext = r.text
 	r.close()
@@ -95,7 +95,7 @@ def update():
 	machine.reset()
 
 def get_code():
-	print("get_code  ")
+	print("get_code")
 	response = urequests.get("https://api.thingspeak.com/channels/1204431/feeds.json?api_key=0Q99T4THA5P1COUB&results=1")
 	rt = response.text
 	response.close()
@@ -106,12 +106,12 @@ def get_code():
 	return btn_val_int
 
 def guest_mode_on():
-	print("  guest_mode_on  ")
+	print("guest_mode_on")
 
 	pass
 
 def guest_mode_off():
-	print(" guest_mode_off   ")
+	print("guest_mode_off")
 
 	pass
 
