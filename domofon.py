@@ -51,6 +51,7 @@ def nothing():
 	pass
 
 def open_usual():
+	global read_call_pin_timer_activated
 	print("trying open_usual")
 	if not read_call_pin_timer_activated:
 		#if not in waiting mode
@@ -75,11 +76,13 @@ def open_usual():
 			response.close()
 
 def open_guestmode():
+	global read_call_pin_timer_activated
 	print("open_guestmode")
 
 	pass
 
 def wait_for_a_call():
+	global read_call_pin_timer_activated
 	print("trying wait_for_a_call")
 	if not read_call_pin_timer_activated:
 		print("wait_for_a_call")
@@ -89,6 +92,7 @@ def wait_for_a_call():
 		print("Sorry, wait_for_a_call, but read_call_pin_timer_activated...")
 
 def read_call_pin(callback_id, current_time, callback_memory):
+	global read_call_pin_timer_activated
 	print("trying read_call_pin")
 	
 	if adc.read()>100:
@@ -138,16 +142,19 @@ def update():
 	machine.reset()
 
 def guest_mode_on():
+	global read_call_pin_timer_activated
 	print("guest_mode_on")
 
 	pass
 
 def guest_mode_off():
+	global read_call_pin_timer_activated
 	print("guest_mode_off")
 
 	pass
 
 def get_code():
+	global read_call_pin_timer_activated
 	print("get_code")
 	response = urequests.get("https://api.thingspeak.com/channels/1204431/feeds.json?api_key=0Q99T4THA5P1COUB&results=1")
 	rt = response.text
