@@ -79,7 +79,11 @@ def update():
 	rtext = r.text
 	r.close()
 	with open("boot.py","w") as f:
-		f.write(rtext)
+		f.write(rtext)	
+		
+	response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
+	response.close()
+	
 	machine.reset()
 
 def get_code():
