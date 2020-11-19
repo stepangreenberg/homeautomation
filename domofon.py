@@ -29,12 +29,12 @@ settime()
 
 mcron.init_timer()
 
-pin = machine.Pin(2, machine.Pin.OUT)
+#pin = machine.Pin(2, machine.Pin.OUT)
 pin2 = machine.Pin(16, machine.Pin.OUT)
 pin2.off()
-pin.off()
+#pin.off()
 sleep(1)
-pin.on()
+#pin.on()
 
 def reset(callback_id, current_time, callback_memory):
 
@@ -47,10 +47,10 @@ def nothing():
 	pass
 
 def open_usual():
-	pin.on()
+	#pin.on()
 	pin2.off()
 	sleep(16)
-	pin.off()
+	#pin.off()
 	pin2.on()
 	response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
 	response.close()
