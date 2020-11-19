@@ -12,6 +12,8 @@ from time import sleep
 import machine
 from ntptime import settime
 import network
+import ujson
+
 
 rtc=RTC()
 adc = machine.ADC(0)
