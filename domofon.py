@@ -46,7 +46,12 @@ def reset(callback_id, current_time, callback_memory):
 mcron.insert(mcron.PERIOD_HOUR, range(0, mcron.PERIOD_HOUR, 1800), 'half_hour', reset)
 
 def nothing():
-	print("nothing")
+	global read_call_pin_timer_activated
+	print("trying nothing")
+	if not read_call_pin_timer_activated:
+		print("nothing")
+	else:
+		print("Sorry nothing, but read_call_pin_timer_activated")
 	
 	pass
 
