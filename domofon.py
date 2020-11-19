@@ -62,7 +62,7 @@ def open_guestmode():
 
 	pass
 
-def read_call_pin():
+def read_call_pin(callback_id, current_time, callback_memory):
 	print("read_call_pin")
 	if adc.read()>100:
 		open_usual()
