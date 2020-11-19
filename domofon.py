@@ -29,7 +29,6 @@ mcron.init_timer()
 
 pin = machine.Pin(2, machine.Pin.OUT)
 pin2 = machine.Pin(16, machine.Pin.OUT)
-pin_sound = machine.Pin(1600000, machine.Pin.OUT)
 pin2.off()
 pin.off()
 sleep(1)
