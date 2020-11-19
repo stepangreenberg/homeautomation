@@ -1,3 +1,4 @@
+#BUG WHEN READ CALL PIN AND OPEN
 #timers for guest mode and in advance mode ?
 #guest_mode Ответ ботом домофон в гостевом режиме. 
 #30 минут - на стороне сервера, и подобное тож внеш память
