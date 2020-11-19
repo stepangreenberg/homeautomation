@@ -107,7 +107,7 @@ def read_call_pin(callback_id, current_time, callback_memory):
 	print(adc_read)
 	print("end adc value.")
 	
-	if adc_read>100:
+	if adc_read>35:
 		print("open in read_call_pin")
 		#pin.on()
 		pin2.off()
