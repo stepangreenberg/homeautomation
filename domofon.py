@@ -102,7 +102,12 @@ def read_call_pin(callback_id, current_time, callback_memory):
 	global read_call_pin_timer_activated
 	print("trying read_call_pin")
 	
-	if adc.read()>100:
+	adc_read = adc.read()
+	print("adc value:")
+	print(adc_read)
+	print("end adc value.")
+	
+	if adc_read>100:
 		print("open in read_call_pin")
 		#pin.on()
 		pin2.off()
@@ -161,6 +166,13 @@ def guest_mode_off():
 	pass
 
 def get_code():
+	
+	adc_read = adc.read()
+	print("adc value:")
+	print(adc_read)
+	print("end adc value.")
+	
+	
 	global read_call_pin_timer_activated
 	print("get_code")
 	response = urequests.get("https://api.thingspeak.com/channels/1204431/feeds.json?api_key=0Q99T4THA5P1COUB&results=1")
