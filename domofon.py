@@ -45,7 +45,6 @@ mcron.insert(mcron.PERIOD_HOUR, range(0, mcron.PERIOD_HOUR, 1800), 'half_hour', 
 def nothing():
 	print("nothing")
 	
-	run[get_code()]()
 	pass
 
 def open_usual():
@@ -120,9 +119,9 @@ def get_code():
 	btn_val_int = int(btn_val)
 	return btn_val_int
 
-
-run = {0: nothing, 1: open_usual, 100: update, 101: wait_for_a_call, 102: guest_mode_on, 103: guest_mode_off}
-run[get_code()]()
+while True:
+	run = {0: nothing, 1: open_usual, 100: update, 101: wait_for_a_call, 102: guest_mode_on, 103: guest_mode_off}
+	run[get_code()]()
 
 
 
