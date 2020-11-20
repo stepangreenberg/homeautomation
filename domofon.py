@@ -168,7 +168,8 @@ def guest_mode_off():
 def check_adc():
 	adc_read = adc.read()
 	print("sending adc to telegram")
-	response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
+	adc_url = "https://api.telegram.org/bot1451623366:AAGK87XRO94slqmP3eMj2loqt4Nce10QaKI/sendMessage?chat_id=478011973&text=" + str(adc_read)
+	response = urequests.get(adc_url)
 	response_text = response.text
 	response.close()
 	
