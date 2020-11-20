@@ -60,11 +60,11 @@ try:
 	sleep(3)
 	pin2.on()
 
-	def reset(callback_id, current_time, callback_memory):
+	#def reset(callback_id, current_time, callback_memory):
 
-		machine.reset()
+		#machine.reset()
 
-	mcron.insert(mcron.PERIOD_HOUR, range(0, mcron.PERIOD_HOUR, 1800), 'half_hour', reset)
+	#mcron.insert(mcron.PERIOD_HOUR, range(0, mcron.PERIOD_HOUR, 1800), 'half_hour', reset)
 
 	def nothing():
 		global read_call_pin_timer_activated
