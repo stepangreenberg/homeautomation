@@ -139,6 +139,7 @@ def update():
 	r.close()
 	with open("boot.py","w") as f:
 		f.write(rtext)	
+	print("end adc value.")
 		
 	response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
 	response_text = response.text
@@ -165,6 +166,11 @@ def guest_mode_off():
 
 	pass
 def check_adc():
+	adc_read = adc.read()
+	print("sending adc to telegram")
+	response = urequests.get("https://api.thingspeak.com/update?api_key=CZ1A7QIZN41BT072&field1=0")
+	response_text = response.text
+	response.close()
 	
 	pass
 
