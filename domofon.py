@@ -164,6 +164,9 @@ def guest_mode_off():
 	print("guest_mode_off")
 
 	pass
+def check_adc():
+	
+	pass
 
 def get_code():
 	
@@ -185,5 +188,5 @@ def get_code():
 	return btn_val_int
 
 while True:
-	run = {0: nothing, 1: open_usual, 100: update, 101: wait_for_a_call, 102: guest_mode_on, 103: guest_mode_off}
+	run = {0: nothing, 1: open_usual, 100: update, 101: wait_for_a_call, 102: guest_mode_on, 103: guest_mode_off, 104: check_adc}
 	run[get_code()]()
