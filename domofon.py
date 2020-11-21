@@ -189,12 +189,16 @@ try:
 		adc_read = adc.read()
 		print("sending adc to telegram")
 		adc_url = "https://api.telegram.org/bot1451623366:AAGK87XRO94slqmP3eMj2loqt4Nce10QaKI/sendMessage?chat_id=478011973&text=adc"
+		print(1)
 
 		response = urequests.get(adc_url)
+		print(2)
 		response_text = response.text
+		print(3)
 		response.close()
+		print(4)
 
-		pass
+		
 
 	def get_code():
 
