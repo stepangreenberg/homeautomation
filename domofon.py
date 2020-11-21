@@ -187,7 +187,8 @@ try:
 	def check_adc():
 		adc_read = adc.read()
 		print("sending adc to telegram")
-		adc_url = "https://api.telegram.org/bot1451623366:AAGK87XRO94slqmP3eMj2loqt4Nce10QaKI/sendMessage?chat_id=478011973&text=" + str(adc_read)
+		adc_url = "https://api.telegram.org/bot1451623366:AAGK87XRO94slqmP3eMj2loqt4Nce10QaKI/sendMessage?chat_id=478011973&text=adc"
+
 		response = urequests.get(adc_url)
 		response_text = response.text
 		response.close()
